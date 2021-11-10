@@ -1,0 +1,12 @@
+@layout('layouts/main')
+@set('title', 'Image upload form')
+
+@section('main')
+  <form action="{{ route('ImagesController.store') }}" enctype="multipart/form-data" method="POST">
+    <input type="file" name="picture" id="picture">
+
+    <button type="submit">
+      Envoyer
+    </button>
+  </form>
+@end
