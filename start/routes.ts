@@ -19,7 +19,12 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 Route
   .resource('/images', 'ImagesController')
   .only(['create', 'store'])
+
+Route.get('/*', async ({response}: HttpContextContract) => {
+  response.redirect().toRoute('ImagesController.create')
+})
