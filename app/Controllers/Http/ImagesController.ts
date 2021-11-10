@@ -6,11 +6,21 @@ export default class ImagesController {
     return view.render('image/create')
   }
 
-  public async store({ request }: HttpContextContract) {
+  public async store({ request, response, session, view }: HttpContextContract) {
     const picture = request.file('picture')
 
     if (picture) {
-      await picture.move(Application.tmpPath('uploads'))
+      const name = `${Date.now()}.${picture.extname}`
+
+      await picture.move(Application.tmpPath('uploads'), {
+        name
+      })
+
+      session.flash('success', `Image disponible ici : ${Application.tmpPath('uploads')}/${name}`)
+    } else {
+      session.flash('danger', 'Aucune image uploadé')
     }
+
+    return response.redirect().toRoute('ImagesController.create')
   }
 }

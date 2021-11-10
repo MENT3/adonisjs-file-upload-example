@@ -14,16 +14,6 @@
       position: relative;
     }
 
-    body:before {
-      content: '';
-      background: #5A45FF;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 6px;
-      position: absolute;
-    }
-
     * {
       margin: 0;
       padding: 0;
@@ -38,10 +28,36 @@
       display: flex;
       justify-content: center;
     }
+
+    .flash_message {
+      border-radius: .4rem;
+      background: lightgray;
+      padding: 1rem;
+      margin: 2rem;
+    }
+
+    .flash_message--success {
+      background: rgba(16, 185, 129);
+    }
+
+    .flash_message--danger {
+      background: rgba(239, 68, 68);
+    }
   </style>
 </head>
 
 <body>
+  @if(flashMessages.has('success'))
+    <div class="flash_message flash_message--success">
+      {{ flashMessages.get('success') }}
+    </div>
+  @endif
+
+  @if(flashMessages.has('danger'))
+    <div class="flash_message flash_message--danger">
+      {{ flashMessages.get('danger') }}
+    </div>
+  @endif
   <main>
     @!section('main')
   </main>
